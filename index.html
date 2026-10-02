@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zé Coxinha: cardápio novo</title>
+<link rel="icon" href="assets/img/m/logo-emoji.png">
+<link rel="stylesheet" href="assets/fonts/fonts.css?v=20261002f">
+<link rel="stylesheet" href="css/site.css?v=20261002f">
+</head>
+<body>
+<div id="pre"><div class="box"><img src="assets/img/m/ze-joia.webp" alt=""><div class="barra"><i></i></div></div></div>
+<div id="progresso"></div>
+<div id="teseBig" aria-hidden="true"><small>Margem por mês nas 28 lojas · se igualar a concorrência</small><b></b><span class="car"></span></div>
+<div id="guia" aria-hidden="true"><div class="bal"></div><img src="assets/img/m/ze-joia.webp" alt=""></div>
+<header id="hud"><img class="logo" src="assets/img/m/logo.webp" alt="Zé Coxinha"><div class="dir"><span class="tese" id="teseHud" title="Margem de contribuição por mês nas 28 lojas (marca ZC no iFood), cenário conservador"><small>Margem/mês · rede</small><b></b><i id="teseDelta"></i></span><span class="cena" id="cenaNome">Abertura</span><button class="btn" id="btnAuto" title="Apresentação automática (A)">▶ Apresentar</button></div></header>
+<nav id="dots"></nav>
+
+<!-- 0 HERO -->
+<section id="hero" data-nome="Abertura">
+  <canvas id="funil"></canvas>
+  <div class="wrap">
+    <div>
+      <span class="tag">Cardápio novo · Zé Coxinha · 28 lojas no iFood</span>
+      <h1 class="rev" style="margin-top:18px">O Zé já é escolhido.<br><em>Agora precisa ser pedido.</em><br>E pedido de novo.</h1>
+      <p class="sub rev">Um cardápio que ataca a tela onde a rede mais perde pedido e sobe o ticket só onde sobra margem.</p>
+      <div class="kpis rev">
+        <div class="kpi k1"><b id="kMcv" data-v="rede.cenarios.0.ganho" data-f="brlkp"></b><span>por mês nas 28 lojas, se a tela do item igualar a concorrência</span></div>
+        <div class="kpi"><b data-v="rede.passagens.sairam_item_pct" data-f="pct"></b><span>das aberturas de item terminam sem sacola</span></div>
+        <div class="kpi"><b data-v="rede.horario_pico_pct" data-f="pct"></b><span>das vendas da rede entre 14h e 18h</span></div>
+      </div>
+    </div>
+    <div class="ze rev"><div class="balao">Mesma coxinha. Menos toque, mais margem.</div><img src="assets/img/m/ze-joia.webp" alt="Mascote Zé Coxinha"></div>
+  </div>
+  <div class="faixa" aria-hidden="true"><div id="faixaTxt"></div></div>
+</section>
+
+<!-- VÍDEO -->
+<section id="filme" data-nome="O vídeo">
+  <div class="wrap">
+    <span class="tag claro">Vídeo · antes × depois</span>
+    <h2 class="titulo rev" id="filmeTit">Assista em 1 minuto.</h2>
+    <div class="video-box rev"><video id="vid" src="assets/video/antes-depois.mp4?v=20261002f" poster="assets/video/poster.jpg?v=20261002f" preload="metadata" playsinline></video><button class="play-v" id="playV" aria-label="Tocar o vídeo"><i></i></button></div>
+  </div>
+</section>
+
+
+<!-- 2 HOJE x NOVO -->
+<section id="hoje" data-nome="Hoje × novo">
+  <div class="wrap">
+    <span class="tag">1 · O cardápio de hoje × o novo</span>
+    <h2 class="titulo rev">O que trava o pedido hoje, e como o novo resolve.</h2>
+    <div class="hxn-cab rev"><span></span><b class="h">Hoje</b><span></span><b class="n">No cardápio novo</b></div>
+    <div class="hxn" id="hxn"></div>
+    <p class="fonte" id="hxnFonte"></p>
+  </div>
+</section>
+
+<!-- 3 CORRIDA -->
+<section id="corrida" data-nome="Mesma fome, dois cardápios">
+  <div class="wrap">
+    <span class="tag claro">2 · Mesma fome, dois cardápios</span>
+    <h2 class="titulo rev" style="max-width:22ch">O mesmo cliente faz o mesmo pedido nos dois.</h2>
+    <p class="lead rev" id="corridaTxt"></p>
+    <div class="pista">
+      <div class="lado" id="ladoA"><h3>Hoje <span class="pill">cardápio atual</span></h3><div class="cel" id="celA"></div></div>
+      <div class="placar">
+        <div class="cen-tabs" style="justify-content:center;margin:0" id="rodadas"></div>
+        <div class="lin"><b class="a" id="pA-toq">0</b><span>toques</span><b class="n" id="pN-toq">0</b></div>
+        <div class="lin"><b class="a" id="pA-esc">0</b><span>escolhas obrigatórias</span><b class="n" id="pN-esc">0</b></div>
+        <div class="lin"><b class="a" id="pA-tic">R$ 0</b><span>ticket (itens)</span><b class="n" id="pN-tic">R$ 0</b></div>
+        <div class="lin"><b class="a" id="pA-mar">R$ 0</b><span>margem após iFood</span><b class="n" id="pN-mar">R$ 0</b></div>
+        <button class="play" id="btnCorrida">▶ Rodar: primeiro hoje, depois o novo</button>
+        <p class="cena-txt" id="corridaFase">Margem = preço × (1 − 17,5%) − CMV da Tabela.</p>
+      </div>
+      <div class="lado novo" id="ladoN"><h3>Novo <span class="pill">proposta</span></h3><div class="cel" id="celN"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4 NOVO -->
+<section id="novo" class="mostarda" data-nome="O cardápio novo">
+  <div class="wrap">
+    <span class="tag">3 · O cardápio novo · navegue você mesmo</span>
+    <h2 class="titulo rev" style="max-width:20ch">7 categorias pensadas por quem vai comer.</h2>
+    <div class="novo-grid">
+      <div class="estrutura" id="estrutura"></div>
+      <div class="cel" id="celNovo"></div>
+      <div class="gestor" id="gestor"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 7 MAIS OPÇÕES -->
+<section id="opcoes" class="mostarda" data-nome="Mais opções de cardápio">
+  <div class="wrap">
+    <span class="tag">4 · Mais opções para o cardápio da rede</span>
+    <h2 class="titulo rev">7 melhorias novas, todas com dado do BI.</h2>
+    <div class="novas" id="novas"></div>
+    <p class="fonte" id="novasFonte"></p>
+  </div>
+</section>
+
+<!-- 8 RASPADINHA -->
+<section id="volta" class="escuro" data-nome="O segundo pedido">
+  <div class="wrap">
+    <span class="tag claro">5 · O segundo pedido · Raspadinha do Zé</span>
+    <h2 class="titulo rev" style="max-width:20ch">Todo pedido leva o motivo para o próximo.</h2>
+    <p class="fase2 rev">Fase 2, depois do teste do cardápio. Fica fora do conservador.</p>
+    <div class="rasp-grid">
+      <div>
+        <div class="cartao"><div class="zz"><img src="assets/img/m/ze-apaixonado.webp" alt=""></div>
+          <div class="tx"><b>Oi, sumido?<br>Raspa aqui!</b><div class="area"><span>Raspou, ganhou!<br>5 coxinhas</span><canvas id="raspa"></canvas></div><small>Todo cartão ganha o mesmo mimo. Resgate na loja.</small></div></div>
+        <p class="fonte" style="text-align:center">Raspe com o mouse ou o dedo.</p>
+      </div>
+      <div>
+        <div class="passos">
+          <div class="passo"><i>A</i><p><b>iFood:</b> cartão na caixa, resgate na loja. Sem link nem telefone (cláusula 3.3).</p></div>
+          <div class="passo"><i>B</i><p><b>App e balcão:</b> raspadinha digital com QR, resgate no próximo pedido.</p></div>
+          <div class="passo"><i>C</i><p><b>Dentro do iFood:</b> Fidelidade da loja, meta de 3 pedidos em 30 dias.</p></div>
+        </div>
+        <div class="contas" id="contasRasp"></div>
+        <div class="alerta"><b>Premiada (só alguns ganham)</b> exige autorização da SPA e 20% de IR. Por isso começa com "Raspou, ganhou", que não precisa de autorização.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- 12 DECISÃO -->
+<section id="decisao" class="mostarda" data-nome="A decisão">
+  <div class="wrap">
+    <div class="fim">
+      <div><span class="tag">6 · A decisão que peço hoje</span><h2 class="rev" style="margin-top:16px">Mesma coxinha.<br>Menos toque.<br>Mais margem.<br>E volta.</h2></div>
+      <img class="ze rev" src="assets/img/m/ze-forte.webp" alt="">
+    </div>
+    <div class="dec3 rev" id="dec3"></div>
+  </div>
+</section>
+
+
+<script src="js/dados.js?v=20261002f"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="js/phone.js?v=20261002f"></script>
+<script src="js/site.js?v=20261002f"></script>
+</body>
+</html>
